@@ -1,4 +1,4 @@
-def call(giturl) {    
+def call(String giturl) {    
 	stage('SCM'){
         git giturl
     }
