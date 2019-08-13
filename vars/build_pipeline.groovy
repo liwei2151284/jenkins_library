@@ -1,5 +1,6 @@
-    stage('SCM'){
-        git 'https://github.com/jfrog/project-examples.git'
+def call(giturl) {    
+	stage('SCM'){
+        git giturl
     }
     
     stage('set env'){
@@ -18,3 +19,4 @@
     stage ('Exec Maven') {
         rtMaven.run pom: 'maven-example/multi3/pom.xml', goals: 'clean install -U', buildInfo: buildInfo
     }
+}
