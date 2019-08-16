@@ -1,5 +1,5 @@
 def call(String giturl) {    
-	stage('SCM'){
+    stage('SCM'){
         git giturl
     }
     
