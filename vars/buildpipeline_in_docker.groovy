@@ -1,6 +1,8 @@
 def call(String giturl,jdk_version) {  
+  
   def image
   def java_home
+  
   if (jdk_version == 'jdk8.1'){
     image = 'akagelo/jenkins-slave-maven3:latest'
     java_home = '/usr/lib/jvm/java-8-openjdk-amd64'
@@ -31,7 +33,7 @@ def call(String giturl,jdk_version) {
                   rtMaven.resolver releaseRepo: 'jenkins_pipeline_webinar_release_virtual', snapshotRepo: 'jenkins_pipeline_webinar_release_virtual', server: artiServer
               }
           }
-
+        
           stage ('Exec Maven') {
               container('jenkins-slave') {
                   env.JAVA_HOME = '/usr/lib/jvm/java-8-openjdk-amd64'
@@ -39,7 +41,17 @@ def call(String giturl,jdk_version) {
               }
           }
 
-
+          stage('sonar scan'){
+              def SONAR_SOURCES = '.'
+              def SONAR_HOST_URL = 'http://47.93.114.82:9000/'
+              def SONAR_PROJECT_KEY = "${JOB_NAME}"
+	            def scannerHome = tool 'sonarClient';
+                  withSonarQubeEnv('sonar') {
+	                sh "echo ${scannerHome}"
+                  sh "${scannerHome}/bin/sonar-runner -Dsonar.projectKey=${SONAR_PROJECT_KEY} -Dsonar.sources=${SONAR_SOURCES}"
+    	        }
+          }
+        
       }
   }
 }
