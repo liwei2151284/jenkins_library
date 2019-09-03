@@ -44,7 +44,7 @@ def call(String giturl,jdk_version) {
           stage('sonar scan'){
               def SONAR_SOURCES = '.'
               def SONAR_HOST_URL = 'http://47.93.114.82:9000/'
-              def SONAR_PROJECT_KEY = "${JOB_NAME}
+              def SONAR_PROJECT_KEY = "${JOB_NAME}"
               def scannerHome = tool 'sonarClient';
                   withSonarQubeEnv('sonar') {
                   sh "echo ${scannerHome}"
