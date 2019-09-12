@@ -3,9 +3,14 @@ def call(String giturl,jdk_version) {
   def image
   def java_home
   
-  if (jdk_version == 'jdk8.1'){
+  if (jdk_version == 'jdk8'){
     image = 'akagelo/jenkins-slave-maven3:latest'
     java_home = '/usr/lib/jvm/java-8-openjdk-amd64'
+  }else if(jdk_version == 'jdk7') { 
+   image = 'akagelo/jenkins-slave-maven3:latest'
+   java_home = '/usr/lib/jvm/java-7-openjdk-amd64'
+  } else { 
+   xx
   }
   podTemplate(label: 'jenkins-slave', cloud: 'kubernetes',containers: [
       containerTemplate(name: 'jenkins-slave', envVars: [envVar(key: 'JAVA_HOME', value: "${java_home}")],image: "${image}", ttyEnabled: true, command: 'cat'),
