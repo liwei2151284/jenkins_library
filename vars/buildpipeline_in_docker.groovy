@@ -24,7 +24,7 @@ def call(String giturl,jdk_version) {
 
           stage('artifactory-env-set') {
               container('jenkins-slave') {
-                  artiServer = Artifactory.server('artiha-demo')
+                  artiServer = Artifactory.server('Artifactory_ip')
                   buildInfo = Artifactory.newBuildInfo()
               rtMaven = Artifactory.newMavenBuild()
               }
