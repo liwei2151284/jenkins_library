@@ -1,6 +1,6 @@
 def call(String giturl,branch) {    
     stage('SCM'){
-        git giturl branch: branch,
+        git branch: branch,giturl
     }
     
     stage('set env'){
