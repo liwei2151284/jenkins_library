@@ -1,5 +1,5 @@
 def call(String giturl){
-node(){
+
     def artiServer = Artifactory.server 'arti-platform'
     def rtMaven = Artifactory.newMavenBuild()
     def buildInfo = Artifactory.newBuildInfo()
@@ -45,5 +45,5 @@ node(){
         
     }
     
-}
+
 }
