@@ -18,33 +18,33 @@ def call(String giturl,jdk_version) {
       node('jenkins-slave') {
           stage('git-checkout') {
               container('jenkins-slave') {
-                  git giturl
+                  echo 'docker'
               }
           }
 
-          stage('artifactory-env-set') {
-              container('jenkins-slave') {
-                  artiServer = Artifactory.server('Artifactory_ip')
-                  buildInfo = Artifactory.newBuildInfo()
-              rtMaven = Artifactory.newMavenBuild()
-              }
-          }
+          //stage('artifactory-env-set') {
+          //    container('jenkins-slave') {
+          //        artiServer = Artifactory.server('Artifactory_ip')
+          //        buildInfo = Artifactory.newBuildInfo()
+          //    rtMaven = Artifactory.newMavenBuild()
+          //    }
+          //}
 
-          stage('artifactory config') {
-              container('jenkins-slave') {
-                  env.JAVA_HOME = "${java_home}"
-                  rtMaven.tool = 'maven-k8s' // Tool name from Jenkins configuration
-                  rtMaven.deployer releaseRepo: 'jenkins_pipeline_webinar_stage_local', snapshotRepo: 'jenkins_pipeline_webinar_snapshot_local', server: artiServer
-                  rtMaven.resolver releaseRepo: 'jenkins_pipeline_webinar_release_virtual', snapshotRepo: 'jenkins_pipeline_webinar_release_virtual', server: artiServer
-              }
-          }
+          //stage('artifactory config') {
+          //    container('jenkins-slave') {
+          //        env.JAVA_HOME = "${java_home}"
+          //        rtMaven.tool = 'maven-k8s' // Tool name from Jenkins configuration
+          //        rtMaven.deployer releaseRepo: 'jenkins_pipeline_webinar_stage_local', snapshotRepo: 'jenkins_pipeline_webinar_snapshot_local', server: artiServer
+          //        rtMaven.resolver releaseRepo: 'jenkins_pipeline_webinar_release_virtual', snapshotRepo: 'jenkins_pipeline_webinar_release_virtual', server: artiServer
+           //   }
+          //}
         
-          stage ('Exec Maven') {
-              container('jenkins-slave') {
-                  env.JAVA_HOME = "${java_home}"
-                  rtMaven.run pom: 'maven-example/multi3/pom.xml', goals: 'clean install -U', buildInfo: buildInfo
-              }
-          }
+          //stage ('Exec Maven') {
+          //    container('jenkins-slave') {
+          //        env.JAVA_HOME = "${java_home}"
+          //        rtMaven.run pom: 'maven-example/multi3/pom.xml', goals: 'clean install -U', buildInfo: buildInfo
+          //    }
+         // }
 
           //stage('sonar scan'){
           //    def SONAR_SOURCES = '.'
